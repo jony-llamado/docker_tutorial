@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: second-app-deployment
+  labels: # The key of the labels depend on you
+    group: example
+spec: # Configuration of the overall deployment
+  replicas: 1
+  selector:
+    # matchExpressions:
+    #   - {key: app, operator values: [second-app, first-app]}
+    matchLabels: # All values like this must be controlled with this deployment; otherwise they won't be controlled
+      app: second-app # This is matched with your template.metadata.labels.app
+      tier: backend # This is matched with your template.metadata.labels.tier
+  template: # Define the pods that should be created as part of this deployment
+    metadata:
+      labels: # The keys and values are up to you
+        app: second-app
+        tier: backend
+    spec: # Specification of the individual pod; you can have more than one container
+      containers: # The keys and values are up to you
+        - name: second-node
+          image: planaterobotics/kub-first-app:2 # Needs to be in docker hub
+          imagePullPolicy: Always
+          livenessProbe: 
+            httpGet:
+              path: /
+              port: 8080
+            periodSeconds: 10 # Define how often it should be performed
+            initialDelaySeconds: 5 # How long it waits until it checks the health for the first time

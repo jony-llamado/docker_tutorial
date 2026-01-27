@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend # The name is up to you
+spec:
+  selector: # Define which pods should be part of this service
+    app: second-app # We can also add the tier:backend label if we want to be more specific
+  ports:
+    - protocol: "TCP" # Default
+      port: 81 # Outside the application
+      targetPort: 8080 # Inside the application
+  type: LoadBalancer
