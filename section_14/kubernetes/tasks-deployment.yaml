@@ -1,21 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: users-deployment 
+  name: tasks-deployment 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: users
+      app: tasks
   template:
     metadata:
       labels:
-        app: users
+        app: tasks
     spec:
       containers:
-        - name: users
-          image: planaterobotics/kub-demo-users:2
+        - name: tasks
+          image: planaterobotics/kub-demo-tasks:2
           imagePullPolicy: Always
           env:
+            - name: TASKS_FOLDER
+              value: "tasks"
             - name: AUTH_ADDRESS
               value: "auth-service.default"

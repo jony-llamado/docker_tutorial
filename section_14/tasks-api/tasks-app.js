@@ -17,7 +17,7 @@ const extractAndVerifyToken = async (headers) => {
   }
   const token = headers.authorization.split(' ')[1]; // expects Bearer TOKEN
 
-  const response = await axios.get('http://auth:81/verify-token/' + token);
+  const response = await axios.get(`http://${process.env.AUTH_ADDRESS}:81/verify-token/` + token);
   return response.data.uid;
 };
 
