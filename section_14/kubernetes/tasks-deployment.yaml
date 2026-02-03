@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: tasks
-          image: planaterobotics/kub-demo-tasks:2
+          image: planaterobotics/kub-demo-tasks
           imagePullPolicy: Always
           env:
             - name: TASKS_FOLDER

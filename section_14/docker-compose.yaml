@@ -11,8 +11,16 @@ services:
   tasks:
     build: ./tasks-api
     ports: 
-      - "8001:8000"
+      - "8000:8000"
     environment:
       TASKS_FOLDER: tasks
       AUTH_ADDRESS: auth
+  frontend:
+    build: ./frontend
+    ports:
+      - "82:80"
+    environment:
+      REACT_APP_TASKS_ADDRESS: 192.168.49.2:30196
+    depends_on:
+      - tasks
     
